@@ -9,6 +9,6 @@ SQL Management Studio:
 
 Visual Studio:
 	1) Open CandidateApplication.sln on VS 2017.
-	2) Edit Web.config file/<connectionstring>/data source to have your server name. 
+	2) Edit Web.config file/connectionstring/data source to have your server name. 
 	3) Server Explorer panel: Refresh Data Connection.
 	4) Clean Solution, Build solution and Run.
