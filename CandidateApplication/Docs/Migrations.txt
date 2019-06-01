@@ -1,0 +1,3 @@
+﻿1) Enable-Migrations
+2) Add-migration "StartProject"
+3) Update-database

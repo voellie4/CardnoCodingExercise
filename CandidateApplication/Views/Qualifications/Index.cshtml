@@ -1,0 +1,58 @@
+﻿@model IEnumerable<CandidateApplication.Models.Candidate.Qualification>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Index</h2>
+
+<p>
+    @Html.ActionLink("Back to Candidate List", "Index", "Candidates")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.Candidate.FirstName)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Candidate.LastName)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.QualificationType)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.QualificationName)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.DateStarted)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.DateCompleted)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.Candidate.FirstName)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Candidate.LastName)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.QualificationType)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.QualificationName)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.DateStarted)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.DateCompleted)
+        </td>
+    </tr>
+}
+
+</table>

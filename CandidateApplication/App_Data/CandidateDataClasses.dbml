@@ -1,0 +1,43 @@
+﻿<?xml version="1.0" encoding="utf-8"?><Database Name="DbCandidate" Class="CandidateDataClassesDataContext" xmlns="http://schemas.microsoft.com/linqtosql/dbml/2007">
+  <Connection Mode="WebSettings" ConnectionString="Data Source=DESKTOP-40V9EBS\;Initial Catalog=DbCandidate;Integrated Security=True" SettingsObjectName="System.Configuration.ConfigurationManager.ConnectionStrings" SettingsPropertyName="DefaultConnection" Provider="System.Data.SqlClient" />
+  <Table Name="dbo.Candidates" Member="Candidates">
+    <Type Name="Candidate">
+      <Column Name="CandidateId" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="FirstName" Type="System.String" DbType="NVarChar(MAX) NOT NULL" CanBeNull="false" />
+      <Column Name="LastName" Type="System.String" DbType="NVarChar(MAX) NOT NULL" CanBeNull="false" />
+      <Column Name="PhoneNumber" Type="System.String" DbType="NVarChar(MAX) NOT NULL" CanBeNull="false" />
+      <Column Name="Email" Type="System.String" DbType="NVarChar(MAX) NOT NULL" CanBeNull="false" />
+      <Column Name="ZipCode" Type="System.String" DbType="NVarChar(5) NOT NULL" CanBeNull="false" />
+      <Association Name="Candidate_Qualification" Member="Qualifications" ThisKey="CandidateId" OtherKey="CandidateId" Type="Qualification" />
+    </Type>
+  </Table>
+  <Table Name="dbo.Qualifications" Member="Qualifications">
+    <Type Name="Qualification">
+      <Column Name="QualificationId" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="QualificationType" Type="System.String" DbType="NVarChar(MAX)" CanBeNull="true" />
+      <Column Name="QualificationName" Type="System.String" DbType="NVarChar(MAX)" CanBeNull="true" />
+      <Column Name="DateStarted" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="DateCompleted" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="CandidateId" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Association Name="Candidate_Qualification" Member="Candidate" ThisKey="CandidateId" OtherKey="CandidateId" Type="Candidate" IsForeignKey="true" DeleteRule="CASCADE" DeleteOnNull="true" />
+    </Type>
+  </Table>
+  <Function Name="dbo.procCandidateSelect" Method="procCandidateSelect">
+    <Parameter Name="FirstName" Parameter="firstName" Type="System.String" DbType="VarChar(25)" />
+    <Parameter Name="LastName" Parameter="lastName" Type="System.String" DbType="VarChar(25)" />
+    <Parameter Name="Email" Parameter="email" Type="System.String" DbType="VarChar(150)" />
+    <Parameter Name="PhoneNumber" Parameter="phoneNumber" Type="System.String" DbType="VarChar(20)" />
+    <Parameter Name="ZipCode" Parameter="zipCode" Type="System.String" DbType="VarChar(5)" />
+    <Parameter Name="QualificationType" Parameter="qualificationType" Type="System.String" DbType="VarChar(30)" />
+    <Parameter Name="QualificationName" Parameter="qualificationName" Type="System.String" DbType="VarChar(MAX)" />
+    <Parameter Name="SearchDate" Parameter="searchDate" Type="System.DateTime" DbType="DateTime" />
+    <ElementType Name="procCandidateSelectResult">
+      <Column Name="CandidateId" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="FirstName" Type="System.String" DbType="NVarChar(25) NOT NULL" CanBeNull="false" />
+      <Column Name="LastName" Type="System.String" DbType="NVarChar(25) NOT NULL" CanBeNull="false" />
+      <Column Name="PhoneNumber" Type="System.String" DbType="NVarChar(20) NOT NULL" CanBeNull="false" />
+      <Column Name="Email" Type="System.String" DbType="NVarChar(150) NOT NULL" CanBeNull="false" />
+      <Column Name="ZipCode" Type="System.String" DbType="NVarChar(5) NOT NULL" CanBeNull="false" />
+    </ElementType>
+  </Function>
+</Database>
