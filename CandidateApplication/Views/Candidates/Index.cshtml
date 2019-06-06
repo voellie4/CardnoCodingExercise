@@ -4,6 +4,8 @@
     ViewBag.Title = "Index";
 }
 
+@Scripts.Render("~/bundles/jquery")
+
 <h2>Search Candidate</h2>
 
 @using (Html.BeginForm("index", "candidates", FormMethod.Get))
