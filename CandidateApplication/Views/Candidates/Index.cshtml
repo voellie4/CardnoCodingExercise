@@ -1,0 +1,101 @@
+﻿@model CandidateApplication.Models.Candidate.CandidateSearchModel
+
+@{
+    ViewBag.Title = "Index";
+}
+
+@Scripts.Render("~/bundles/jquery")
+
+<h2>Search Candidate</h2>
+
+@using (Html.BeginForm("index", "candidates", FormMethod.Get))
+{
+    <div class="row">
+        <div class="form-group">
+            <div class="col-md-2">
+                @Html.TextBoxFor(m => m.SchFirst, new { autocomplete = "off", @class = "form-control", @placeholder = "First Name" })
+            </div>
+            <div class="col-md-2">
+                @Html.TextBoxFor(m => m.SchLast, new { autocomplete = "off", @class = "form-control", @placeholder = "Last Name" })
+            </div>
+            <div class="col-md-2">
+                @Html.TextBoxFor(m => m.SchPhone, new { autocomplete = "off", @class = "form-control", @placeholder = "Phone Number" })
+            </div>
+            <div class="col-md-2">
+                @Html.TextBoxFor(m => m.SchEmail, new { autocomplete = "off", @class = "form-control", @placeholder = "Email" })
+            </div>
+            <div class="col-md-2">
+                @Html.TextBoxFor(m => m.SchZipCode, new { autocomplete = "off", @class = "form-control", @placeholder = "Zip Code" })
+            </div>
+            <div class="col-md-2">
+                <button type="submit" class="btn btn-success">
+                    <span class="glyphicon glyphicon-search"></span>
+                </button>
+                <a class="btn btn-success pull-right" data-modal="" href="/Candidates/Create" id="btnCreate">
+                    <span class="glyphicon glyphicon-plus"></span>
+                </a>
+            </div>
+            <br />
+            <br />
+            <div class="col-md-3">
+                @Html.ListBoxFor(m => m.SchQTypes, (MultiSelectList)ViewBag.TypesList, new { Multiple = "multiple" })
+            </div>
+            <div class="col-md-3">
+                @Html.ListBoxFor(m => m.SchQNames, (MultiSelectList)ViewBag.NamesList, new { Multiple = "multiple" })
+            </div>
+            <div class="col-md-3">
+                @Html.EditorFor(m => m.SchDate, new { htmlAttributes = new { autocomplete = "off", @class = "form-control", @placeholder = "Date Match" } })
+            </div>
+        </div>
+    </div>
+
+    <div style="margin-top:17px;">
+        @{
+            var grid = new WebGrid(
+                canPage: true,
+                rowsPerPage: 20,
+                canSort: true,
+                ajaxUpdateContainerId: "grid"
+                );
+            grid.Bind(Model.Candidates, rowCount: Model.TotalRecords, autoSortAndPage: false);
+            grid.Pager(WebGridPagerModes.All);
+
+            @grid.GetHtml(htmlAttributes: new { id = "grid" },
+                fillEmptyRows: false, tableStyle: "table table-bordered table-hover",
+                mode: WebGridPagerModes.All,
+                columns: grid.Columns(
+                        grid.Column("FirstName", "First Name", style: "col-md-2"),
+                        grid.Column("LastName", "Last Name", style: "col-md-2"),
+                        grid.Column("PhoneNumber", "Phone Number", style: "col-md-3"),
+                        grid.Column("Email", "Email", style: "col-md-3"),
+                        grid.Column("ZipCode", "Zip Code", style: "col-md-2"),
+                        grid.Column(header: "Action", canSort: false, style: "action",
+                        format: (item)=> {
+                            var link = Html.ActionLink("Qualification Detail", "Index", "Qualifications", new { id = item.CandidateId }, htmlAttributes: new { @class = "btn btn-success" });
+                            return link;
+                        })));
+        }
+    </div>
+}
+
+<link href="https://code.jquery.com/ui/1.11.4/themes/smoothness/jquery-ui.css" rel="stylesheet" type="text/css">
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+    @Scripts.Render("~/bundles/jqueryui")
+    @Styles.Render("~/Content/cssjqryUi")
+
+    <script type="text/javascript">
+
+        $(document).ready(function () {
+            $('input[type=datetime]').datepicker({
+                dateFormat: "dd/M/yy",
+                changeMonth: true,
+                changeYear: true,
+                yearRange: "-60:+0"
+            });
+
+        });
+    </script>
+}
+
+
